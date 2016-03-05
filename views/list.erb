@@ -1,0 +1,28 @@
+<html>
+<head>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body>
+  <div class=container style="font-size: 2em;">
+    <h3><a href="/">Home</a></h3>
+  <h2><%= @list.name %></h2>
+  <form method="POST" action="/tasks">
+    <label>Create Task</label>
+    <input type="field" name="name">
+    <input type="hidden" name="id" value="<%= @list.id %>">
+    <button type=submit>submit</button>
+  </form>
+    <ul>
+      <% @list.tasks.each do |t| %>
+        <li>
+          <form method="post" action="/tasks/<%= t.id %>">
+            <input type="hidden" name="_method" value="put" />
+            <input <%= if t.completed then "checked" end %> type="checkbox" name="<%= t.id %>"> <label><%= t.task %></label>
+            <button type=submit>Save</button>
+          </form>
+        </li>
+      <%end%>
+    </ul>
+  </div>
+</body>
+</html>
